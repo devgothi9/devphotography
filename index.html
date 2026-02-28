@@ -209,6 +209,36 @@
     }
     .btn-ghost:hover{border-color:rgba(181,154,90,.75);color:var(--gold);transform:translateY(-1px)}
 
+    .btn-portfolio{
+      background:var(--gold);
+      border:none;
+      color:#fff;
+      padding:14px 26px;
+      border-radius:999px;
+      font-size:.72rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      font-weight:600;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 8px 28px rgba(181,154,90,.35);
+      transition:transform .2s ease, box-shadow .25s ease, background .25s ease;
+      text-decoration:none;
+      animation:portfolioPulse 2.5s ease-in-out infinite;
+    }
+    .btn-portfolio:hover{
+      background:#a48845;
+      transform:translateY(-2px);
+      box-shadow:0 12px 36px rgba(181,154,90,.45);
+      animation:none;
+    }
+    @keyframes portfolioPulse{
+      0%,100%{box-shadow:0 8px 28px rgba(181,154,90,.35)}
+      50%{box-shadow:0 8px 36px rgba(181,154,90,.55)}
+    }
+
     /* ========= HERO (photo left + text right) ========= */
     #hero{
       min-height:100vh;
@@ -988,7 +1018,7 @@
 
         <div class="hero-btns">
           <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSebwzb1P501_oURqZt63KqmUf8fEywBN5VKi8jHYSj1FajOpQ/viewform" target="_blank" rel="noopener noreferrer">Book a Shoot</a>
-          <button class="btn-ghost" type="button" onclick="openGallery()">View Portfolio</button>
+          <button class="btn-portfolio" type="button" onclick="openGallery()">View Portfolio →</button>
         </div>
 
         <div class="chips" aria-label="Trust chips">
