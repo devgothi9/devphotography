@@ -1,33 +1,20 @@
 import { NextResponse } from "next/server";
 import { rateLimit } from "../../lib/rate-limit";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 /**
- * Default reviews (hardcoded so they work on Vercel serverless).
- * Edit these to change the reviews shown on your site.
+ * Default reviews loaded from data/reviews.json.
+ * Edit that file to change the reviews shown on your site.
+ * Reading works fine on Vercel — only writing to the filesystem doesn't.
  */
-const defaultReviews = [
-  {
-    stars: 5,
-    text: "Professional, discreet, and incredibly talented. Our corporate event looked premium in every shot.",
-    name: "James R.",
-    service: "Corporate",
-    createdAt: "2025-09-20T00:00:00.000Z",
-  },
-  {
-    stars: 5,
-    text: "Editing service is exceptional — consistent, clean, and beautiful. Highly recommended.",
-    name: "Priya N.",
-    service: "Photo Editing",
-    createdAt: "2025-08-10T00:00:00.000Z",
-  },
-  {
-    stars: 4,
-    text: "Relaxed portrait session and stunning results. We printed them large in our living room.",
-    name: "The Kowalski Family",
-    service: "Portrait Session",
-    createdAt: "2025-07-05T00:00:00.000Z",
-  },
-];
+let defaultReviews;
+try {
+  const filePath = join(process.cwd(), "data", "reviews.json");
+  defaultReviews = JSON.parse(readFileSync(filePath, "utf-8"));
+} catch {
+  defaultReviews = [];
+}
 
 // In-memory store for new reviews (persists while the serverless function is warm)
 let newReviews = [];
