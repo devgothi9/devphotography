@@ -93,17 +93,19 @@
     .nav-cta:hover{background:var(--gold);transform:translateY(-1px)}
     .ham{
       display:none;
-      border:none;background:transparent;
-      width:auto;height:auto;
-      padding:8px;
-      border-radius:8px;
-      flex-direction:column;
-      align-items:center;justify-content:center;
+      border:none;
+      background:transparent;
+      padding:10px;
       cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
     }
-    .ham span{
-      display:block;width:20px;height:2px;background:var(--ink);
-      margin:3px 0;border-radius:2px;
+    .ham svg{
+      display:block;
+      width:24px;
+      height:24px;
+      stroke:var(--ink);
+      stroke-width:2;
+      stroke-linecap:round;
     }
 
     /* ========= MOBILE MENU ========= */
@@ -129,14 +131,20 @@
     }
     .mob a:hover{color:var(--gold)}
     .mob-x{
-      position:absolute;top:18px;right:18px;
-      width:44px;height:44px;border-radius:999px;
-      border:1px solid var(--line);
-      background:var(--card);
-      color:var(--ink);
-      font-size:1.1rem;
-      box-shadow:var(--shadow2);
+      position:absolute;top:16px;right:16px;
+      border:none;
+      background:transparent;
+      padding:10px;
       cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .mob-x svg{
+      display:block;
+      width:24px;
+      height:24px;
+      stroke:var(--ink);
+      stroke-width:2;
+      stroke-linecap:round;
     }
 
     /* ========= SECTIONS ========= */
@@ -849,7 +857,7 @@
       .logo{font-size:1.2rem}
 
       /* HAMBURGER BUTTON */
-      .ham span{width:18px;height:1.5px;margin:2.5px 0}
+      .ham svg{width:22px;height:22px}
 
       /* HERO */
       #hero{padding:90px 16px 56px}
@@ -932,7 +940,9 @@
 <body>
   <!-- MOBILE MENU -->
   <div class="mob" id="mobMenu" aria-hidden="true">
-    <button class="mob-x" onclick="closeMob()" aria-label="Close menu">✕</button>
+    <button class="mob-x" onclick="closeMob()" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
     <a href="javascript:void(0)" onclick="openGallery(); closeMob();">Portfolio</a>
     <a href="#services" onclick="closeMob()">Services</a>
     <a href="#editing" onclick="closeMob()">Editing</a>
@@ -956,7 +966,7 @@
     <a class="nav-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSebwzb1P501_oURqZt63KqmUf8fEywBN5VKi8jHYSj1FajOpQ/viewform" target="_blank" rel="noopener noreferrer">Book a Shoot</a>
 
     <button class="ham" onclick="openMob()" aria-label="Open menu">
-      <span></span><span></span><span></span>
+      <svg viewBox="0 0 24 24" fill="none"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </nav>
 
