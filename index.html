@@ -110,8 +110,8 @@
 
     /* ========= MOBILE MENU ========= */
     .mob{
-      position:fixed;inset:0;z-index:199;
-      background:rgba(251,248,243,.96);
+      position:fixed;inset:0;z-index:300;
+      background:rgba(251,248,243,.98);
       backdrop-filter:blur(14px);
       display:none;
       flex-direction:column;
@@ -131,17 +131,18 @@
     }
     .mob a:hover{color:var(--gold)}
     .mob-x{
-      position:absolute;top:16px;right:16px;
+      position:absolute;top:14px;right:14px;
+      z-index:301;
       border:none;
       background:transparent;
-      padding:10px;
+      padding:12px;
       cursor:pointer;
       -webkit-tap-highlight-color:transparent;
     }
     .mob-x svg{
       display:block;
-      width:24px;
-      height:24px;
+      width:28px;
+      height:28px;
       stroke:var(--ink);
       stroke-width:2;
       stroke-linecap:round;
@@ -1263,14 +1264,17 @@
 
     // ===== MOBILE MENU =====
     const mobMenu = document.getElementById('mobMenu');
+    const mainNav = document.getElementById('mainNav');
     function openMob(){
       mobMenu.classList.add('open');
       mobMenu.setAttribute('aria-hidden','false');
+      mainNav.style.display='none';
       document.body.style.overflow='hidden';
     }
     function closeMob(){
       mobMenu.classList.remove('open');
       mobMenu.setAttribute('aria-hidden','true');
+      mainNav.style.display='';
       document.body.style.overflow='';
     }
 
