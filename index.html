@@ -849,26 +849,16 @@
 
       /* HAMBURGER BUTTON */
       .ham{
-        gap:0;
-        background:rgba(31,31,31,.05);
-        border:1px solid var(--line);
-        padding:10px 16px;
-        width:auto;height:auto;
+        width:42px;height:42px;
         border-radius:12px;
-        flex-direction:row;
+        background:transparent;
+        border:none;
+        flex-direction:column;
         align-items:center;
+        justify-content:center;
+        gap:0;
       }
-      .ham div{display:flex;flex-direction:column;gap:3px}
-      .ham div span{width:18px;height:1.5px;margin:0}
-      .ham-label{
-        display:inline-block;
-        font-size:.6rem;
-        letter-spacing:.15em;
-        text-transform:uppercase;
-        color:var(--muted);
-        font-weight:600;
-        margin-left:10px;
-      }
+      .ham span{width:20px;height:2px;margin:3px 0;border-radius:2px}
 
       /* HERO */
       #hero{padding:90px 16px 56px}
@@ -975,8 +965,7 @@
     <a class="nav-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSebwzb1P501_oURqZt63KqmUf8fEywBN5VKi8jHYSj1FajOpQ/viewform" target="_blank" rel="noopener noreferrer">Book a Shoot</a>
 
     <button class="ham" onclick="openMob()" aria-label="Open menu">
-      <div><span></span><span></span><span></span></div>
-      <span class="ham-label">Menu</span>
+      <span></span><span></span><span></span>
     </button>
   </nav>
 
