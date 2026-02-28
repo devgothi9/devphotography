@@ -94,15 +94,16 @@
     .ham{
       display:none;
       border:none;background:transparent;
-      width:44px;height:44px;
-      border-radius:999px;
+      width:auto;height:auto;
+      padding:8px;
+      border-radius:8px;
+      flex-direction:column;
       align-items:center;justify-content:center;
       cursor:pointer;
     }
     .ham span{
-      display:block;width:22px;height:2px;background:var(--ink);
-      margin:4px 0;border-radius:99px;
-      opacity:.9;
+      display:block;width:20px;height:2px;background:var(--ink);
+      margin:3px 0;border-radius:2px;
     }
 
     /* ========= MOBILE MENU ========= */
@@ -848,17 +849,7 @@
       .logo{font-size:1.2rem}
 
       /* HAMBURGER BUTTON */
-      .ham{
-        width:42px;height:42px;
-        border-radius:12px;
-        background:transparent;
-        border:none;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        gap:0;
-      }
-      .ham span{width:20px;height:2px;margin:3px 0;border-radius:2px}
+      .ham span{width:18px;height:1.5px;margin:2.5px 0}
 
       /* HERO */
       #hero{padding:90px 16px 56px}
