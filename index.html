@@ -80,9 +80,9 @@
     }
     #bgObject img{
       position:absolute;
-      inset:-20px;
-      width:calc(100% + 40px);
-      height:calc(100% + 40px);
+      inset:-60px;
+      width:calc(100% + 120px);
+      height:calc(100% + 120px);
       object-fit:cover;
       object-position:center center;
       filter:blur(4px) brightness(.3);
@@ -1441,15 +1441,15 @@
 
       function update(){
         currentScrollY = lerp(currentScrollY, scrollY, 0.08);
-        curTX = lerp(curTX, touchX, 0.08);
-        curTY = lerp(curTY, touchY, 0.08);
+        curTX = lerp(curTX, touchX, 0.15);
+        curTY = lerp(curTY, touchY, 0.15);
 
         var docH = document.documentElement.scrollHeight - window.innerHeight;
         var progress = docH > 0 ? currentScrollY / docH : 0;
 
-        /* touch offset: ±8px from center (well within 20px bleed) */
-        var ox = (curTX - 0.5) * 16;
-        var oy = (curTY - 0.5) * 16;
+        /* touch offset: ±50px from center (within 60px bleed) */
+        var ox = (curTX - 0.5) * 100;
+        var oy = (curTY - 0.5) * 100;
         var sc = 1 + progress * 0.03;
 
         bgImg.style.transform =
@@ -1476,12 +1476,14 @@
       }, { passive: true });
 
       /* touch / pointer reactivity */
-      window.addEventListener('touchmove', function(e){
+      function onTouch(e){
         var t = e.touches[0];
         touchX = t.clientX / window.innerWidth;
         touchY = t.clientY / window.innerHeight;
         kick();
-      }, { passive: true });
+      }
+      window.addEventListener('touchstart', onTouch, { passive: true });
+      window.addEventListener('touchmove', onTouch, { passive: true });
 
       window.addEventListener('touchend', function(){
         touchX = 0.5; touchY = 0.5; kick();
