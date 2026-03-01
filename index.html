@@ -46,18 +46,24 @@
     /* ========= INTRO MONTAGE ========= */
     #introMontage{
       position:fixed;inset:0;z-index:9999;
-      background:#0a0a0c;
       display:flex;align-items:center;justify-content:center;
       overflow:hidden;
     }
-    #introMontage img{
+    #introMontage .montage-bg{
+      position:absolute;inset:0;
+      width:100%;height:100%;
+      object-fit:cover;
+      filter:blur(4px) brightness(.3);
+      z-index:0;
+    }
+    #introMontage img.montage-photo{
       position:absolute;inset:0;
       width:100%;height:100%;
       object-fit:contain;
-      background:#0a0a0c;
       opacity:0;
+      z-index:1;
     }
-    #introMontage img.flash{opacity:1}
+    #introMontage img.montage-photo.flash{opacity:1}
     #introMontage.dissolve{
       opacity:0;
       transition:opacity .8s cubic-bezier(.4,0,.2,1);
@@ -1035,7 +1041,9 @@
 
 <body>
   <!-- INTRO MONTAGE -->
-  <div id="introMontage" aria-hidden="true"></div>
+  <div id="introMontage" aria-hidden="true">
+    <img class="montage-bg" src="/images/bird.jpeg" alt="" />
+  </div>
 
   <!-- BACKGROUND HERO OBJECT -->
   <div id="bgObject" aria-hidden="true">
@@ -1395,6 +1403,7 @@
         var img = document.createElement('img');
         img.src = src;
         img.alt = '';
+        img.className = 'montage-photo';
         img.loading = 'eager';
         montage.appendChild(img);
         return img;
