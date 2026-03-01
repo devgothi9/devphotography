@@ -80,20 +80,13 @@
     }
     #bgObject img{
       position:absolute;
-      top:50%;left:50%;
-      width:140%;
-      min-height:140%;
-      transform:translate(-50%,-50%);
+      inset:-20px;
+      width:calc(100% + 40px);
+      height:calc(100% + 40px);
       object-fit:cover;
       object-position:center center;
       filter:blur(4px) brightness(.3);
       will-change:transform;
-    }
-    @media (max-width:720px){
-      #bgObject img{
-        width:200%;
-        min-height:200%;
-      }
     }
 
     /* ========= NOISE + VIGNETTE ========= */
@@ -1436,6 +1429,10 @@
       var bgImg = bg.querySelector('img');
       if(!bgImg) return;
 
+      /* disable parallax on mobile — just keep static bg */
+      var isMobile = window.innerWidth <= 720;
+      if(isMobile) return;
+
       var scrollY = 0;
       var currentY = 0;
       var ticking = false;
@@ -1448,14 +1445,10 @@
         var docH = document.documentElement.scrollHeight - window.innerHeight;
         var progress = docH > 0 ? currentY / docH : 0;
 
-        /* move within the oversized image — translate(-50%,-50%) is the
-           base centering; we add small offsets on top */
-        var tx = -50 + Math.sin(progress * Math.PI * 2) * 5;   /* % */
-        var ty = -50 - (progress * 10);                         /* % */
-        var sc = 1 + progress * 0.04;
+        /* small scale only — no translate, so edges never show */
+        var sc = 1 + progress * 0.03;
 
-        bgImg.style.transform =
-          'translate(' + tx + '%, ' + ty + '%) scale(' + sc + ')';
+        bgImg.style.transform = 'scale(' + sc + ')';
 
         if(Math.abs(currentY - scrollY) > 0.5){
           requestAnimationFrame(updateBg);
