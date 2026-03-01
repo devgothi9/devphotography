@@ -1429,41 +1429,72 @@
       var bgImg = bg.querySelector('img');
       if(!bgImg) return;
 
-      /* disable parallax on mobile — just keep static bg */
       var isMobile = window.innerWidth <= 720;
-      if(isMobile) return;
 
-      var scrollY = 0;
-      var currentY = 0;
+      /* ---- shared state ---- */
+      var scrollY = 0, currentScrollY = 0;
+      var touchX = 0.5, touchY = 0.5;        /* 0-1 normalized */
+      var curTX = 0.5, curTY = 0.5;
       var ticking = false;
 
       function lerp(a,b,t){ return a + (b - a) * t; }
 
-      function updateBg(){
-        currentY = lerp(currentY, scrollY, 0.08);
+      function update(){
+        currentScrollY = lerp(currentScrollY, scrollY, 0.08);
+        curTX = lerp(curTX, touchX, 0.08);
+        curTY = lerp(curTY, touchY, 0.08);
 
         var docH = document.documentElement.scrollHeight - window.innerHeight;
-        var progress = docH > 0 ? currentY / docH : 0;
+        var progress = docH > 0 ? currentScrollY / docH : 0;
 
-        /* small scale only — no translate, so edges never show */
+        /* touch offset: ±8px from center (well within 20px bleed) */
+        var ox = (curTX - 0.5) * 16;
+        var oy = (curTY - 0.5) * 16;
         var sc = 1 + progress * 0.03;
 
-        bgImg.style.transform = 'scale(' + sc + ')';
+        bgImg.style.transform =
+          'translate(' + ox + 'px,' + oy + 'px) scale(' + sc + ')';
 
-        if(Math.abs(currentY - scrollY) > 0.5){
-          requestAnimationFrame(updateBg);
+        var needsUpdate =
+          Math.abs(currentScrollY - scrollY) > 0.5 ||
+          Math.abs(curTX - touchX) > 0.001 ||
+          Math.abs(curTY - touchY) > 0.001;
+
+        if(needsUpdate){
+          requestAnimationFrame(update);
         } else {
           ticking = false;
         }
       }
 
+      function kick(){
+        if(!ticking){ ticking = true; requestAnimationFrame(update); }
+      }
+
       window.addEventListener('scroll', function(){
-        scrollY = window.scrollY;
-        if(!ticking){
-          ticking = true;
-          requestAnimationFrame(updateBg);
-        }
+        scrollY = window.scrollY; kick();
       }, { passive: true });
+
+      /* touch / pointer reactivity */
+      window.addEventListener('touchmove', function(e){
+        var t = e.touches[0];
+        touchX = t.clientX / window.innerWidth;
+        touchY = t.clientY / window.innerHeight;
+        kick();
+      }, { passive: true });
+
+      window.addEventListener('touchend', function(){
+        touchX = 0.5; touchY = 0.5; kick();
+      }, { passive: true });
+
+      /* mouse on desktop */
+      if(!isMobile){
+        window.addEventListener('mousemove', function(e){
+          touchX = e.clientX / window.innerWidth;
+          touchY = e.clientY / window.innerHeight;
+          kick();
+        }, { passive: true });
+      }
     })();
 
     // ===== NAV SCROLL =====
