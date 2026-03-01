@@ -74,11 +74,20 @@
     }
     #bgObject img{
       position:absolute;
-      top:-30%;left:-30%;
-      width:160%;height:160%;
+      top:50%;left:50%;
+      width:140%;
+      min-height:140%;
+      transform:translate(-50%,-50%);
       object-fit:cover;
+      object-position:center center;
       filter:blur(4px) brightness(.3);
       will-change:transform;
+    }
+    @media (max-width:720px){
+      #bgObject img{
+        width:200%;
+        min-height:200%;
+      }
     }
 
     /* ========= NOISE + VIGNETTE ========= */
@@ -1430,11 +1439,11 @@
         var docH = document.documentElement.scrollHeight - window.innerHeight;
         var progress = docH > 0 ? currentY / docH : 0;
 
-        /* move within the 160% oversized image — max ±18% of its own size
-           which is well within the 30% bleed on each side */
-        var tx = Math.sin(progress * Math.PI * 2) * 8;   /* % */
-        var ty = -(progress * 16);                        /* % */
-        var sc = 1 + progress * 0.06;
+        /* move within the oversized image — translate(-50%,-50%) is the
+           base centering; we add small offsets on top */
+        var tx = -50 + Math.sin(progress * Math.PI * 2) * 5;   /* % */
+        var ty = -50 - (progress * 10);                         /* % */
+        var sc = 1 + progress * 0.04;
 
         bgImg.style.transform =
           'translate(' + tx + '%, ' + ty + '%) scale(' + sc + ')';
