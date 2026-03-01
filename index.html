@@ -28,16 +28,23 @@
       --r: 22px;
     }
 
-    html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(95,168,122,.4) transparent}
+    html{
+      scroll-behavior:smooth;
+      scrollbar-width:thin;
+      scrollbar-color:rgba(95,168,122,.4) transparent;
+      background:#0c0f0a;
+    }
     ::-webkit-scrollbar{width:6px}
     ::-webkit-scrollbar-thumb{background:rgba(95,168,122,.3);border-radius:99px}
 
     body{
-      background:var(--bg);
+      background:#0c0f0a;
       color:var(--text);
       font-family:'Outfit',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       font-weight:300;
       overflow-x:hidden;
+      min-height:100vh;
+      min-height:100dvh;
     }
 
     a{color:inherit}
@@ -73,7 +80,7 @@
     /* ========= BACKGROUND IMAGE ========= */
     #bgObject{
       position:fixed;
-      inset:0;
+      top:-60px;left:-60px;right:-60px;bottom:-60px;
       z-index:0;
       pointer-events:none;
       overflow:hidden;
