@@ -53,7 +53,8 @@
     #introMontage img{
       position:absolute;inset:0;
       width:100%;height:100%;
-      object-fit:cover;
+      object-fit:contain;
+      background:#0a0a0c;
       opacity:0;
     }
     #introMontage img.flash{opacity:1}
@@ -69,14 +70,15 @@
       inset:0;
       z-index:0;
       pointer-events:none;
-      will-change:transform;
       overflow:hidden;
     }
     #bgObject img{
-      width:120%;height:120%;
-      margin:-10% 0 0 -10%;
+      position:absolute;
+      top:-30%;left:-30%;
+      width:160%;height:160%;
       object-fit:cover;
       filter:blur(4px) brightness(.3);
+      will-change:transform;
     }
 
     /* ========= NOISE + VIGNETTE ========= */
@@ -1413,6 +1415,8 @@
     (function(){
       var bg = document.getElementById('bgObject');
       if(!bg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var bgImg = bg.querySelector('img');
+      if(!bgImg) return;
 
       var scrollY = 0;
       var currentY = 0;
@@ -1421,18 +1425,19 @@
       function lerp(a,b,t){ return a + (b - a) * t; }
 
       function updateBg(){
-        currentY = lerp(currentY, scrollY, 0.06);
+        currentY = lerp(currentY, scrollY, 0.08);
 
         var docH = document.documentElement.scrollHeight - window.innerHeight;
         var progress = docH > 0 ? currentY / docH : 0;
 
-        var tx = Math.sin(progress * Math.PI * 2) * 15;
-        var ty = -progress * 40;
-        var rot = progress * 8 - 3;
-        var sc = 1 + progress * 0.05;
+        /* move within the 160% oversized image — max ±18% of its own size
+           which is well within the 30% bleed on each side */
+        var tx = Math.sin(progress * Math.PI * 2) * 8;   /* % */
+        var ty = -(progress * 16);                        /* % */
+        var sc = 1 + progress * 0.06;
 
-        bg.style.transform =
-          'translate3d(' + tx + 'px,' + ty + 'px,0) scale(' + sc + ')';
+        bgImg.style.transform =
+          'translate(' + tx + '%, ' + ty + '%) scale(' + sc + ')';
 
         if(Math.abs(currentY - scrollY) > 0.5){
           requestAnimationFrame(updateBg);
